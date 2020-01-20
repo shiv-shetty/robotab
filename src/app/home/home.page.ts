@@ -16,8 +16,6 @@ export class HomePage {
   constructor() {}
   
   public place() {
-
     this.items.push('e');
-
   }
 }
