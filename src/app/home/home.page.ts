@@ -101,4 +101,14 @@ export class HomePage {
     }
     this.items.push(this.curcol + ',' + this.currow + ',' + this.curdir);
   }
+
+  public main() {
+    this.test();
+    return true;
+  }
+
+  public test() {
+    console.log('*****');
+    return 5;
+  }
 }
