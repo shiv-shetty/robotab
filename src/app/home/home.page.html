@@ -14,15 +14,15 @@
                   <ion-card-content>
                       <ion-item>
                           <ion-label position="floating">Column (X)</ion-label>
-                          <ion-input type="number" [(ngModel)]="column" id="col-input"></ion-input>
+                          <ion-input type="number" [(ngModel)]="col"></ion-input>
                       </ion-item>
                       <ion-item>
                           <ion-label position="floating">Row (Y)</ion-label>
-                          <ion-input type="number" id="row-input"></ion-input>
+                          <ion-input type="number" [(ngModel)]="row"></ion-input>
                       </ion-item>
                       <ion-item>
                           <ion-label position="floating">Direction</ion-label>
-                          <ion-input type="text" id="dir-input"></ion-input>
+                          <ion-input type="text" [(ngModel)]="dir"></ion-input>
                       </ion-item>
                       <ion-button id="place-btn" (click)="place()">PLACE</ion-button>
                   </ion-card-content>
@@ -31,16 +31,16 @@
       </ion-row>
       <ion-row>
           <ion-col size-md="1" offset-md="4">
-              <ion-button fill="outline" id="move-btn">MOVE</ion-button>
+              <ion-button fill="outline" (click)="move()">MOVE</ion-button>
           </ion-col>
           <ion-col size-md="1">
-              <ion-button fill="outline" id="left-btn">LEFT</ion-button>
+              <ion-button fill="outline" (click)="left()">LEFT</ion-button>
           </ion-col>
           <ion-col size-md="1">
-              <ion-button fill="outline" id="right-btn">RIGHT</ion-button>
+              <ion-button fill="outline" (click)="right()">RIGHT</ion-button>
           </ion-col>
           <ion-col size-md="1">
-              <ion-button fill="outline" id="report-btn">REPORT</ion-button>
+              <ion-button fill="outline" (click)="report()">REPORT</ion-button>
           </ion-col>
       </ion-row>
       <ion-row>
