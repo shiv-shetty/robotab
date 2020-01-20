@@ -13,7 +13,7 @@ export class HomePage {
 
   public directions: any = ['NORTH', 'EAST', 'SOUTH', 'WEST'];
   public rowcolvalues: any = [0, 1, 2, 3, 4];
-  public items: any = [];
+  public items: any = []; 
 
   public currow = 0;
   public curcol = 0;
@@ -22,6 +22,7 @@ export class HomePage {
   public placed = 0;
 
   constructor() {}
+
   public place() {
     if (this.col === null ||
        this.row === null ||
