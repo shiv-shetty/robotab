@@ -23,7 +23,7 @@ describe('HomePage', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should make curcol=3,currow=2,curdir= EAST', () => {
+  it('should make curcol=3,currow=2,curdir= EAST and placed=true', () => {
     component.placed = false;
     component.curcol = 0;
     component.currow = 0;
@@ -38,7 +38,7 @@ describe('HomePage', () => {
     expect(component.placed).toBe(true);
   });
 
-  it('should make curcol=3,currow=2,curdir= WEST', () => {
+  it('should make curcol=3,currow=2,curdir= WEST and placed=true', () => {
     component.placed = false;
     component.curcol = 0;
     component.currow = 0;
@@ -53,15 +53,37 @@ describe('HomePage', () => {
     expect(component.placed).toBe(true);
   });
 
-  it('should append 1,2,right to items', () => {
-    //    this.items.push(this.curcol + ',' + this.currow + ',' + this.curdir);
-    component.items = [];
-    component.placed = true;
+  it('should keep curcol=0,currow=0,curdir= NORTH and placed=false', () => {
+    component.placed = false;
+    component.curcol = 0;
+    component.currow = 0;
+    component.curdir = 'NORTH';
+    component.row = 20;
+    component.col = 3;
+    component.dir = 'EAST';
+    component.place();
+    expect(component.currow).toBe(0);
+    expect(component.curcol).toBe(0);
+    expect(component.curdir).toBe('NORTH');
+    expect(component.placed).toBe(false);
+  });
+
+  it('should keep currow at 2', () => {
+    component.placed = false;
     component.curcol = 1;
     component.currow = 2;
-    component.curdir = 'right';
-    component.report();
-    expect(component.items).toEqual(['1,2,right']);
+    component.curdir = 'NORTH';
+    component.move();
+    expect(component.currow).toBe(2);
+  });
+
+  it('should keep currow at 4', () => {
+    component.placed = true;
+    component.curcol = 1;
+    component.currow = 4;
+    component.curdir = 'NORTH';
+    component.move();
+    expect(component.currow).toBe(4);
   });
 
   it('should change currow to 3', () => {
@@ -73,6 +95,15 @@ describe('HomePage', () => {
     expect(component.currow).toBe(3);
   });
 
+  it('should keep curcol at 4', () => {
+    component.placed = true;
+    component.curcol = 4;
+    component.currow = 1;
+    component.curdir = 'EAST';
+    component.move();
+    expect(component.curcol).toBe(4);
+  });
+
   it('should change curcol to 2', () => {
     component.placed = true;
     component.curcol = 1;
@@ -82,6 +113,15 @@ describe('HomePage', () => {
     expect(component.curcol).toBe(2);
   });
 
+  it('should keep curcol at 0', () => {
+    component.placed = true;
+    component.curcol = 0;
+    component.currow = 2;
+    component.curdir = 'WEST';
+    component.move();
+    expect(component.curcol).toBe(0);
+  });
+  
   it('should change curcol to 0', () => {
     component.placed = true;
     component.curcol = 1;
@@ -91,6 +131,15 @@ describe('HomePage', () => {
     expect(component.curcol).toBe(0);
   });
 
+  it('should keep currow at 1=0', () => {
+    component.placed = true;
+    component.curcol = 1;
+    component.currow = 0;
+    component.curdir = 'SOUTH';
+    component.move();
+    expect(component.currow).toBe(0);
+  });
+  
   it('should change currow to 1', () => {
     component.placed = true;
     component.curcol = 1;
@@ -100,6 +149,13 @@ describe('HomePage', () => {
     expect(component.currow).toBe(1);
   });
 
+  it('should keep curdir at NORTH ', () => {
+    component.placed = false;
+    component.curdir = 'NORTH';
+    component.left();
+    expect(component.curdir).toBe('NORTH');
+  });
+  
   it('should change curdir to NORTH ', () => {
     component.placed = true;
     component.curdir = 'EAST';
@@ -128,6 +184,13 @@ describe('HomePage', () => {
     expect(component.curdir).toBe('WEST');
   });
 
+  it('should keep curdir at NORTH ', () => {
+    component.placed = false;
+    component.curdir = 'NORTH';
+    component.right();
+    expect(component.curdir).toBe('NORTH');
+  });
+
   it('should change curdir to NORTH ', () => {
     component.placed = true;
     component.curdir = 'WEST';
@@ -154,8 +217,28 @@ describe('HomePage', () => {
     component.curdir = 'SOUTH';
     component.right();
     expect(component.curdir).toBe('WEST');
+  });
+
+  it('should keep items as []', () => {
+    //    this.items.push(this.curcol + ',' + this.currow + ',' + this.curdir);
+    component.items = [];
+    component.placed = false;
+    component.curcol = 1;
+    component.currow = 2;
+    component.curdir = 'right';
+    component.report();
+    expect(component.items).toEqual([]);
+  });
+
+  it('should append 1,2,right to items', () => {
+    //    this.items.push(this.curcol + ',' + this.currow + ',' + this.curdir);
+    component.items = [];
+    component.placed = true;
+    component.curcol = 1;
+    component.currow = 2;
+    component.curdir = 'right';
+    component.report();
+    expect(component.items).toEqual(['1,2,right']);
   });
 
 });
-
-
