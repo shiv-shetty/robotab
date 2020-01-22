@@ -19,7 +19,7 @@ export class HomePage {
   public curcol = 0;
   public curdir = this.directions[0];
   public i = 0;
-  public placed = 0;
+  public placed = false;
 
   constructor() {}
 
@@ -35,7 +35,7 @@ export class HomePage {
     this.currow = this.row;
     this.curcol = this.col;
     this.curdir = this.dir;
-    this.placed = 1;
+    this.placed = true;
   }
   public move() {
     if (!this.placed) {
@@ -102,13 +102,6 @@ export class HomePage {
     this.items.push(this.curcol + ',' + this.currow + ',' + this.curdir);
   }
 
-  public main() {
-    this.test();
-    return true;
-  }
+ 
 
-  public test() {
-    console.log('*****');
-    return 5;
-  }
 }
