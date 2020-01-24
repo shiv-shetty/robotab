@@ -1,107 +1,129 @@
 import { Component } from '@angular/core';
 
+enum Directions {
+  NORTH = 'NORTH',
+  EAST = 'EAST',
+  SOUTH = 'SOUTH',
+  WEST = 'WEST',
+}
+
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
+  styleUrls: ['home.page.scss']
 })
+
 export class HomePage {
 
   public col: number;
   public row: number;
   public dir: string;
 
-  public directions: any = ['NORTH', 'EAST', 'SOUTH', 'WEST'];
-  public rowcolvalues: any = [0, 1, 2, 3, 4];
-  public items: any = []; 
+  public rowvalues: any = [0, 1, 2, 3, 4];
+  public colvalues: any = [0, 1, 2, 3, 4];
+  public items: any = [];
 
-  public currow = 0;
-  public curcol = 0;
-  public curdir = this.directions[0];
-  public i = 0;
+  public currentrow = 0;
+  public currentcol = 0;
+  public currentdir = 'NORTH';
   public placed = false;
+  public item;
 
   constructor() {}
 
   public place() {
-    if (this.col === null ||
-       this.row === null ||
-       this.dir === null ||
-       !(this.row in this.rowcolvalues) ||
-        !(this.col in this.rowcolvalues) ||
-        (this.dir !== 'NORTH' && this.dir !== 'EAST' && this.dir !== 'SOUTH' && this.dir !== 'WEST')) {
+    if (this.checkIfNulls() ||
+       !(this.row in this.rowvalues) ||
+        !(this.col in this.colvalues) ||
+        this.notValidDirection()) {
           return;
     }
-    this.currow = this.row;
-    this.curcol = this.col;
-    this.curdir = this.dir;
+    this.currentrow = this.row;
+    this.currentcol = this.col;
+    this.currentdir = this.dir;
     this.placed = true;
   }
+
+  public checkIfNulls() {
+    if (this.col === null ||
+      this.row === null ||
+      this.dir === null ) {
+        return true;
+      }
+    return false;
+  }
+
+  public notValidDirection() {
+    for (let item in Directions) {
+       if (isNaN(Number(item))) {
+        console.log(item);
+        if (this.dir === this.item) {
+          return false;
+        }
+       }
+      }
+    return true;
+  }
+
   public move() {
     if (!this.placed) {
       return;
     }
-    if (this.curdir === this.directions[0]) {
-      if (this.currow === 4) {
+    if (this.currentdir === Directions.NORTH) {
+      if (this.currentrow === 4) {
           return;
       }
-      this.currow ++;
-    } else if (this.curdir === this.directions[1]) {
-      if (this.curcol === 4) {
+      this.currentrow ++;
+    } else if (this.currentdir === Directions.EAST) {
+      if (this.currentcol === 4) {
           return;
       }
-      this.curcol ++;
-    } else if (this.curdir === this.directions[2]) {
-      if (this.currow === 0) {
+      this.currentcol ++;
+    } else if (this.currentdir === Directions.SOUTH) {
+      if (this.currentrow === 0) {
           return;
       }
-      this.currow --;
+      this.currentrow --;
     } else {
-      if (this.curcol === 0) {
+      if (this.currentcol === 0) {
           return;
       }
-      this.curcol --;
+      this.currentcol --;
     }
 
   }
   public left() {
     if (!this.placed) {
       return;
-  }
-    if (this.curdir === this.directions[0]) {
-      this.curdir = this.directions[3];
+    }
+    if (this.currentdir === Directions.NORTH) {
+      this.currentdir = Directions.WEST;
+    } else if (this.currentdir === Directions.EAST) {
+      this.currentdir = Directions.NORTH;
+    } else if (this.currentdir === Directions.SOUTH) {
+      this.currentdir = Directions.EAST;
     } else {
-      for (this.i = 1; this.i < 4; this.i ++) {
-          if (this.curdir === this.directions[this.i]) {
-              this.curdir = this.directions[this.i - 1];
-              break;
-          }
-      }
+      this.currentdir = Directions.SOUTH;
     }
   }
   public right() {
     if (!this.placed) {
       return;
     }
-    if (this.curdir === this.directions[3]) {
-      this.curdir = this.directions[0];
+    if (this.currentdir === Directions.WEST) {
+      this.currentdir = Directions.NORTH;
+    } else if (this.currentdir === Directions.NORTH) {
+      this.currentdir = Directions.EAST;
+    } else if (this.currentdir === Directions.EAST) {
+      this.currentdir = Directions.SOUTH;
     } else {
-      for (this.i = 0; this.i < 3; this.i ++) {
-          if (this.curdir === this.directions[this.i]) {
-              this.curdir = this.directions[this.i + 1];
-              break;
-          }
-      }
+      this.currentdir = Directions.WEST;
     }
-
   }
   public report() {
     if (!this.placed) {
       return;
     }
-    this.items.push(this.curcol + ',' + this.currow + ',' + this.curdir);
+    this.items.push(this.currentcol + ',' + this.currentrow + ',' + this.currentdir);
   }
-
- 
-
 }
