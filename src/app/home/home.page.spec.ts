@@ -68,12 +68,42 @@ describe('HomePage', () => {
     expect(component.placed).toBe(false);
   });
 
+  it('should keep currentcol=0,currentrow=0,currentdir= NORTH and placed=false', () => {
+    component.placed = false;
+    component.currentcol = 0;
+    component.currentrow = 0;
+    component.currentdir = 'NORTH';
+    component.row = 2;
+    component.col = 3;
+    component.dir = 'south west';
+    component.place();
+    expect(component.currentrow).toBe(0);
+    expect(component.currentcol).toBe(0);
+    expect(component.currentdir).toBe('NORTH');
+    expect(component.placed).toBe(false);
+  });
+
+  it('should keep currentcol=0,currentrow=0,currentdir= NORTH and placed=false', () => {
+    component.placed = false;
+    component.currentcol = 0;
+    component.currentrow = 0;
+    component.currentdir = 'NORTH';
+    component.row = null;
+    component.col = 3;
+    component.dir = 'south west';
+    component.place();
+    expect(component.currentrow).toBe(0);
+    expect(component.currentcol).toBe(0);
+    expect(component.currentdir).toBe('NORTH');
+    expect(component.placed).toBe(false);
+  });
+
   it('should keep currentrow at 2', () => {
     component.placed = false;
     component.currentcol = 1;
     component.currentrow = 2;
     component.currentdir = 'NORTH';
-    component.move();
+    component.act('move');
     expect(component.currentrow).toBe(2);
   });
 
@@ -82,7 +112,7 @@ describe('HomePage', () => {
     component.currentcol = 1;
     component.currentrow = 4;
     component.currentdir = 'NORTH';
-    component.move();
+    component.act('move');
     expect(component.currentrow).toBe(4);
   });
 
@@ -91,7 +121,7 @@ describe('HomePage', () => {
     component.currentcol = 1;
     component.currentrow = 2;
     component.currentdir = 'NORTH';
-    component.move();
+    component.act('move');
     expect(component.currentrow).toBe(3);
   });
 
@@ -100,7 +130,7 @@ describe('HomePage', () => {
     component.currentcol = 4;
     component.currentrow = 1;
     component.currentdir = 'EAST';
-    component.move();
+    component.act('move');
     expect(component.currentcol).toBe(4);
   });
 
@@ -109,7 +139,7 @@ describe('HomePage', () => {
     component.currentcol = 1;
     component.currentrow = 2;
     component.currentdir = 'EAST';
-    component.move();
+    component.act('move');
     expect(component.currentcol).toBe(2);
   });
 
@@ -118,7 +148,7 @@ describe('HomePage', () => {
     component.currentcol = 0;
     component.currentrow = 2;
     component.currentdir = 'WEST';
-    component.move();
+    component.act('move');
     expect(component.currentcol).toBe(0);
   });
   it('should change currentcol to 0', () => {
@@ -126,7 +156,7 @@ describe('HomePage', () => {
     component.currentcol = 1;
     component.currentrow = 2;
     component.currentdir = 'WEST';
-    component.move();
+    component.act('move');
     expect(component.currentcol).toBe(0);
   });
 
@@ -135,7 +165,7 @@ describe('HomePage', () => {
     component.currentcol = 1;
     component.currentrow = 0;
     component.currentdir = 'SOUTH';
-    component.move();
+    component.act('move');
     expect(component.currentrow).toBe(0);
   });
   it('should change currentrow to 1', () => {
@@ -143,76 +173,76 @@ describe('HomePage', () => {
     component.currentcol = 1;
     component.currentrow = 2;
     component.currentdir = 'SOUTH';
-    component.move();
+    component.act('move');
     expect(component.currentrow).toBe(1);
   });
 
   it('should keep currentdir at NORTH ', () => {
     component.placed = false;
     component.currentdir = 'NORTH';
-    component.left();
+    component.act('left');
     expect(component.currentdir).toBe('NORTH');
   });
   it('should change currentdir to NORTH ', () => {
     component.placed = true;
     component.currentdir = 'EAST';
-    component.left();
+    component.act('left');
     expect(component.currentdir).toBe('NORTH');
   });
 
   it('should change currentdir to EAST ', () => {
     component.placed = true;
     component.currentdir = 'SOUTH';
-    component.left();
+    component.act('left');
     expect(component.currentdir).toBe('EAST');
   });
 
   it('should change currentdir to SOUTH ', () => {
     component.placed = true;
     component.currentdir = 'WEST';
-    component.left();
+    component.act('left');
     expect(component.currentdir).toBe('SOUTH');
   });
 
   it('should change currentdir to WEST ', () => {
     component.placed = true;
     component.currentdir = 'NORTH';
-    component.left();
+    component.act('left');
     expect(component.currentdir).toBe('WEST');
   });
 
   it('should keep currentdir at NORTH ', () => {
     component.placed = false;
     component.currentdir = 'NORTH';
-    component.right();
+    component.act('right');
     expect(component.currentdir).toBe('NORTH');
   });
 
   it('should change currentdir to NORTH ', () => {
     component.placed = true;
     component.currentdir = 'WEST';
-    component.right();
+    component.act('right');
     expect(component.currentdir).toBe('NORTH');
   });
 
   it('should change currentdir to EAST ', () => {
     component.placed = true;
     component.currentdir = 'NORTH';
-    component.right();
+    component.act('right');
     expect(component.currentdir).toBe('EAST');
   });
 
   it('should change currentdir to SOUTH ', () => {
     component.placed = true;
     component.currentdir = 'EAST';
-    component.right();
+    component.act('right');
     expect(component.currentdir).toBe('SOUTH');
   });
 
   it('should change currentdir to WEST ', () => {
     component.placed = true;
     component.currentdir = 'SOUTH';
-    component.right();
+    component.act('right');
     expect(component.currentdir).toBe('WEST');
   });
 
@@ -223,7 +253,7 @@ describe('HomePage', () => {
     component.currentcol = 1;
     component.currentrow = 2;
     component.currentdir = 'right';
-    component.report();
+    component.act('report');
     expect(component.items).toEqual([]);
   });
 
@@ -234,7 +264,7 @@ describe('HomePage', () => {
     component.currentcol = 1;
     component.currentrow = 2;
     component.currentdir = 'right';
-    component.report();
+    component.act('report');
     expect(component.items).toEqual(['1,2,right']);
   });
 

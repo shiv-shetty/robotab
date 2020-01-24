@@ -81,9 +81,6 @@ export class HomePage {
   }
 
   public move() {
-    if (!this.placed) {
-      return;
-    }
     if (this.currentdir === Directions.NORTH) {
       if (this.currentrow === 4) {
           return;
@@ -108,9 +105,6 @@ export class HomePage {
 
   }
   public left() {
-    if (!this.placed) {
-      return;
-    }
     if (this.currentdir === Directions.NORTH) {
       this.currentdir = Directions.WEST;
     } else if (this.currentdir === Directions.EAST) {
@@ -122,9 +116,6 @@ export class HomePage {
     }
   }
   public right() {
-    if (!this.placed) {
-      return;
-    }
     if (this.currentdir === Directions.WEST) {
       this.currentdir = Directions.NORTH;
     } else if (this.currentdir === Directions.NORTH) {
@@ -136,9 +127,6 @@ export class HomePage {
     }
   }
   public report() {
-    if (!this.placed) {
-      return;
-    }
     this.items.push(this.currentcol + ',' + this.currentrow + ',' + this.currentdir);
   }
 }
