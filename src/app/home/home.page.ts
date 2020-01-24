@@ -35,7 +35,7 @@ export class HomePage {
     if (this.checkIfNulls() ||
        !(this.row in this.rowvalues) ||
         !(this.col in this.colvalues) ||
-        (this.dir !== 'NORTH' && this.dir !== 'EAST' && this.dir !== 'SOUTH' && this.dir !== 'WEST')) {
+        this.notValidDirection()) {
           return;
     }
     this.currentrow = this.row;
@@ -51,6 +51,15 @@ export class HomePage {
         return true;
       }
     return false;
+  }
+
+  public notValidDirection() {
+    for (const item in Directions) {
+      if ( this.dir === Directions[item]) {
+        return false;
+      }
+    }
+    return true;
   }
 
   public act(action: string) {
