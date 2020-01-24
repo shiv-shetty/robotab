@@ -35,7 +35,7 @@ export class HomePage {
     if (this.checkIfNulls() ||
        !(this.row in this.rowvalues) ||
         !(this.col in this.colvalues) ||
-        this.notValidDirection()) {
+        (this.dir !== 'NORTH' && this.dir !== 'EAST' && this.dir !== 'SOUTH' && this.dir !== 'WEST')) {
           return;
     }
     this.currentrow = this.row;
@@ -53,16 +53,22 @@ export class HomePage {
     return false;
   }
 
-  public notValidDirection() {
-    for (let item in Directions) {
-       if (isNaN(Number(item))) {
-        console.log(item);
-        if (this.dir === this.item) {
-          return false;
-        }
-       }
-      }
-    return true;
+  public act(action: string) {
+    if (!this.placed) {
+      return;
+    }
+    switch (action) {
+      case 'move' : this.move();
+                    break;
+      case 'left': this.left();
+                   break;
+      case 'right': this.right();
+                    break;
+      case 'report': this.report();
+                     break;
+      default: return;
+
+    }
   }
 
   public move() {

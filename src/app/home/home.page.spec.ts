@@ -23,220 +23,217 @@ describe('HomePage', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should make curcol=3,currow=2,curdir= EAST and placed=true', () => {
+  it('should make currentcol=3,currentrow=2,currentdir= EAST and placed=true', () => {
     component.placed = false;
-    component.curcol = 0;
-    component.currow = 0;
-    component.curdir = 'NORTH';
+    component.currentcol = 0;
+    component.currentrow = 0;
+    component.currentdir = 'NORTH';
     component.row = 2;
     component.col = 3;
     component.dir = 'EAST';
     component.place();
-    expect(component.currow).toBe(2);
-    expect(component.curcol).toBe(3);
-    expect(component.curdir).toBe('EAST');
+    expect(component.currentrow).toBe(2);
+    expect(component.currentcol).toBe(3);
+    expect(component.currentdir).toBe('EAST');
     expect(component.placed).toBe(true);
   });
 
-  it('should make curcol=3,currow=2,curdir= WEST and placed=true', () => {
+  it('should make currentcol=3,currentrow=2,currentdir= WEST and placed=true', () => {
     component.placed = false;
-    component.curcol = 0;
-    component.currow = 0;
-    component.curdir = 'SOUTH';
+    component.currentcol = 0;
+    component.currentrow = 0;
+    component.currentdir = 'SOUTH';
     component.row = 2;
     component.col = 3;
     component.dir = 'WEST';
     component.place();
-    expect(component.currow).toBe(2);
-    expect(component.curcol).toBe(3);
-    expect(component.curdir).toBe('WEST');
+    expect(component.currentrow).toBe(2);
+    expect(component.currentcol).toBe(3);
+    expect(component.currentdir).toBe('WEST');
     expect(component.placed).toBe(true);
   });
 
-  it('should keep curcol=0,currow=0,curdir= NORTH and placed=false', () => {
+  it('should keep currentcol=0,currentrow=0,currentdir= NORTH and placed=false', () => {
     component.placed = false;
-    component.curcol = 0;
-    component.currow = 0;
-    component.curdir = 'NORTH';
+    component.currentcol = 0;
+    component.currentrow = 0;
+    component.currentdir = 'NORTH';
     component.row = 20;
     component.col = 3;
     component.dir = 'EAST';
     component.place();
-    expect(component.currow).toBe(0);
-    expect(component.curcol).toBe(0);
-    expect(component.curdir).toBe('NORTH');
+    expect(component.currentrow).toBe(0);
+    expect(component.currentcol).toBe(0);
+    expect(component.currentdir).toBe('NORTH');
     expect(component.placed).toBe(false);
   });
 
-  it('should keep currow at 2', () => {
+  it('should keep currentrow at 2', () => {
     component.placed = false;
-    component.curcol = 1;
-    component.currow = 2;
-    component.curdir = 'NORTH';
+    component.currentcol = 1;
+    component.currentrow = 2;
+    component.currentdir = 'NORTH';
     component.move();
-    expect(component.currow).toBe(2);
+    expect(component.currentrow).toBe(2);
   });
 
-  it('should keep currow at 4', () => {
+  it('should keep currentrow at 4', () => {
     component.placed = true;
-    component.curcol = 1;
-    component.currow = 4;
-    component.curdir = 'NORTH';
+    component.currentcol = 1;
+    component.currentrow = 4;
+    component.currentdir = 'NORTH';
     component.move();
-    expect(component.currow).toBe(4);
+    expect(component.currentrow).toBe(4);
   });
 
-  it('should change currow to 3', () => {
+  it('should change currentrow to 3', () => {
     component.placed = true;
-    component.curcol = 1;
-    component.currow = 2;
-    component.curdir = 'NORTH';
+    component.currentcol = 1;
+    component.currentrow = 2;
+    component.currentdir = 'NORTH';
     component.move();
-    expect(component.currow).toBe(3);
+    expect(component.currentrow).toBe(3);
   });
 
-  it('should keep curcol at 4', () => {
+  it('should keep currentcol at 4', () => {
     component.placed = true;
-    component.curcol = 4;
-    component.currow = 1;
-    component.curdir = 'EAST';
+    component.currentcol = 4;
+    component.currentrow = 1;
+    component.currentdir = 'EAST';
     component.move();
-    expect(component.curcol).toBe(4);
+    expect(component.currentcol).toBe(4);
   });
 
-  it('should change curcol to 2', () => {
+  it('should change currentcol to 2', () => {
     component.placed = true;
-    component.curcol = 1;
-    component.currow = 2;
-    component.curdir = 'EAST';
+    component.currentcol = 1;
+    component.currentrow = 2;
+    component.currentdir = 'EAST';
     component.move();
-    expect(component.curcol).toBe(2);
+    expect(component.currentcol).toBe(2);
   });
 
-  it('should keep curcol at 0', () => {
+  it('should keep currentcol at 0', () => {
     component.placed = true;
-    component.curcol = 0;
-    component.currow = 2;
-    component.curdir = 'WEST';
+    component.currentcol = 0;
+    component.currentrow = 2;
+    component.currentdir = 'WEST';
     component.move();
-    expect(component.curcol).toBe(0);
+    expect(component.currentcol).toBe(0);
   });
-  
-  it('should change curcol to 0', () => {
+  it('should change currentcol to 0', () => {
     component.placed = true;
-    component.curcol = 1;
-    component.currow = 2;
-    component.curdir = 'WEST';
+    component.currentcol = 1;
+    component.currentrow = 2;
+    component.currentdir = 'WEST';
     component.move();
-    expect(component.curcol).toBe(0);
-  });
-
-  it('should keep currow at 1=0', () => {
-    component.placed = true;
-    component.curcol = 1;
-    component.currow = 0;
-    component.curdir = 'SOUTH';
-    component.move();
-    expect(component.currow).toBe(0);
-  });
-  
-  it('should change currow to 1', () => {
-    component.placed = true;
-    component.curcol = 1;
-    component.currow = 2;
-    component.curdir = 'SOUTH';
-    component.move();
-    expect(component.currow).toBe(1);
+    expect(component.currentcol).toBe(0);
   });
 
-  it('should keep curdir at NORTH ', () => {
+  it('should keep currentrow at 1=0', () => {
+    component.placed = true;
+    component.currentcol = 1;
+    component.currentrow = 0;
+    component.currentdir = 'SOUTH';
+    component.move();
+    expect(component.currentrow).toBe(0);
+  });
+  it('should change currentrow to 1', () => {
+    component.placed = true;
+    component.currentcol = 1;
+    component.currentrow = 2;
+    component.currentdir = 'SOUTH';
+    component.move();
+    expect(component.currentrow).toBe(1);
+  });
+
+  it('should keep currentdir at NORTH ', () => {
     component.placed = false;
-    component.curdir = 'NORTH';
+    component.currentdir = 'NORTH';
     component.left();
-    expect(component.curdir).toBe('NORTH');
+    expect(component.currentdir).toBe('NORTH');
   });
-  
-  it('should change curdir to NORTH ', () => {
+  it('should change currentdir to NORTH ', () => {
     component.placed = true;
-    component.curdir = 'EAST';
+    component.currentdir = 'EAST';
     component.left();
-    expect(component.curdir).toBe('NORTH');
+    expect(component.currentdir).toBe('NORTH');
   });
 
-  it('should change curdir to EAST ', () => {
+  it('should change currentdir to EAST ', () => {
     component.placed = true;
-    component.curdir = 'SOUTH';
+    component.currentdir = 'SOUTH';
     component.left();
-    expect(component.curdir).toBe('EAST');
+    expect(component.currentdir).toBe('EAST');
   });
 
-  it('should change curdir to SOUTH ', () => {
+  it('should change currentdir to SOUTH ', () => {
     component.placed = true;
-    component.curdir = 'WEST';
+    component.currentdir = 'WEST';
     component.left();
-    expect(component.curdir).toBe('SOUTH');
+    expect(component.currentdir).toBe('SOUTH');
   });
 
-  it('should change curdir to WEST ', () => {
+  it('should change currentdir to WEST ', () => {
     component.placed = true;
-    component.curdir = 'NORTH';
+    component.currentdir = 'NORTH';
     component.left();
-    expect(component.curdir).toBe('WEST');
+    expect(component.currentdir).toBe('WEST');
   });
 
-  it('should keep curdir at NORTH ', () => {
+  it('should keep currentdir at NORTH ', () => {
     component.placed = false;
-    component.curdir = 'NORTH';
+    component.currentdir = 'NORTH';
     component.right();
-    expect(component.curdir).toBe('NORTH');
+    expect(component.currentdir).toBe('NORTH');
   });
 
-  it('should change curdir to NORTH ', () => {
+  it('should change currentdir to NORTH ', () => {
     component.placed = true;
-    component.curdir = 'WEST';
+    component.currentdir = 'WEST';
     component.right();
-    expect(component.curdir).toBe('NORTH');
+    expect(component.currentdir).toBe('NORTH');
   });
 
-  it('should change curdir to EAST ', () => {
+  it('should change currentdir to EAST ', () => {
     component.placed = true;
-    component.curdir = 'NORTH';
+    component.currentdir = 'NORTH';
     component.right();
-    expect(component.curdir).toBe('EAST');
+    expect(component.currentdir).toBe('EAST');
   });
 
-  it('should change curdir to SOUTH ', () => {
+  it('should change currentdir to SOUTH ', () => {
     component.placed = true;
-    component.curdir = 'EAST';
+    component.currentdir = 'EAST';
     component.right();
-    expect(component.curdir).toBe('SOUTH');
+    expect(component.currentdir).toBe('SOUTH');
   });
 
-  it('should change curdir to WEST ', () => {
+  it('should change currentdir to WEST ', () => {
     component.placed = true;
-    component.curdir = 'SOUTH';
+    component.currentdir = 'SOUTH';
     component.right();
-    expect(component.curdir).toBe('WEST');
+    expect(component.currentdir).toBe('WEST');
   });
 
   it('should keep items as []', () => {
-    //    this.items.push(this.curcol + ',' + this.currow + ',' + this.curdir);
+    //    this.items.push(this.currentcol + ',' + this.currentrow + ',' + this.currentdir);
     component.items = [];
     component.placed = false;
-    component.curcol = 1;
-    component.currow = 2;
-    component.curdir = 'right';
+    component.currentcol = 1;
+    component.currentrow = 2;
+    component.currentdir = 'right';
     component.report();
     expect(component.items).toEqual([]);
   });
 
   it('should append 1,2,right to items', () => {
-    //    this.items.push(this.curcol + ',' + this.currow + ',' + this.curdir);
+    //    this.items.push(this.currentcol + ',' + this.currentrow + ',' + this.currentdir);
     component.items = [];
     component.placed = true;
-    component.curcol = 1;
-    component.currow = 2;
-    component.curdir = 'right';
+    component.currentcol = 1;
+    component.currentrow = 2;
+    component.currentdir = 'right';
     component.report();
     expect(component.items).toEqual(['1,2,right']);
   });
