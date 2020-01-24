@@ -7,8 +7,9 @@ describe('new App', () => {
     page = new AppPage();
   });
 
-  it('should be blank', () => {
+  it('Header and card should be displayed', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toContain('The world is your oyster.');
+    expect(page.getHeaderText()).toContain('ROBOTAB');
+    expect(page.getCard()).toBeTruthy();
   });
 });
