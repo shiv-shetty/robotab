@@ -10,7 +10,7 @@ describe('HomePage', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HomePage ],
+      declarations: [HomePage],
       imports: [IonicModule.forRoot(), FormsModule]
     }).compileComponents();
 
@@ -247,7 +247,6 @@ describe('HomePage', () => {
   });
 
   it('should keep items as []', () => {
-    //    this.items.push(this.currentcol + ',' + this.currentrow + ',' + this.currentdir);
     component.items = [];
     component.placed = false;
     component.currentcol = 1;
@@ -258,7 +257,6 @@ describe('HomePage', () => {
   });
 
   it('should append 1,2,right to items', () => {
-    //    this.items.push(this.currentcol + ',' + this.currentrow + ',' + this.currentdir);
     component.items = [];
     component.placed = true;
     component.currentcol = 1;
@@ -268,4 +266,19 @@ describe('HomePage', () => {
     expect(component.items).toEqual(['1,2,right']);
   });
 
+  it('should keep currentdir at SOUTH', () => {
+    spyOn(component, 'move');
+    spyOn(component, 'left');
+    spyOn(component, 'right');
+    spyOn(component, 'report');
+
+    component.placed = true;
+    component.currentdir = 'SOUTH';
+    component.act('');
+    expect(component.move).not.toHaveBeenCalled();
+    expect(component.left).not.toHaveBeenCalled();
+    expect(component.right).not.toHaveBeenCalled();
+    expect(component.report).not.toHaveBeenCalled();
+    expect(component.currentdir).toBe('SOUTH');
+  });
 });
