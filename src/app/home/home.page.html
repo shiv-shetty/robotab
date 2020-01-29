@@ -31,16 +31,16 @@
       </ion-row>
       <ion-row>
           <ion-col size-md="1" offset-md="4">
-              <ion-button fill="outline" (click)="act('move')">MOVE</ion-button>
+              <ion-button id="move-btn" fill="outline" (click)="act('move')">MOVE</ion-button>
           </ion-col>
           <ion-col size-md="1">
-              <ion-button fill="outline" (click)="act('left')">LEFT</ion-button>
+              <ion-button id="left-btn" fill="outline" (click)="act('left')">LEFT</ion-button>
           </ion-col>
           <ion-col size-md="1">
-              <ion-button fill="outline" (click)="act('right')">RIGHT</ion-button>
+              <ion-button id="right-btn" fill="outline" (click)="act('right')">RIGHT</ion-button>
           </ion-col>
           <ion-col size-md="1">
-              <ion-button fill="outline" (click)="act('report')">REPORT</ion-button>
+              <ion-button id="report-btn" fill="outline" (click)="act('report')">REPORT</ion-button>
           </ion-col>
       </ion-row>
       <ion-row>
@@ -50,7 +50,7 @@
       </ion-row>
   </ion-grid>
 
-  <div *ngFor="let item of items">
+  <div id="list-elements" *ngFor="let item of items">
     <p>{{item}}</p>
   </div>
 </ion-content>
