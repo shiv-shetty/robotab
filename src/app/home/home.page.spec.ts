@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, AlertController } from '@ionic/angular';
 
 import { HomePage } from './home.page';
 import { FormsModule } from '@angular/forms';
@@ -7,11 +7,18 @@ import { FormsModule } from '@angular/forms';
 describe('HomePage', () => {
   let component: HomePage;
   let fixture: ComponentFixture<HomePage>;
+  let alertSpy;
+  let presentSpy = jasmine.createSpyObj('presentSpy', { present: Promise.resolve()});
 
   beforeEach(async(() => {
+    alertSpy = jasmine.createSpyObj('alertSpy', { create: Promise.resolve(presentSpy)});
+
     TestBed.configureTestingModule({
       declarations: [HomePage],
-      imports: [IonicModule.forRoot(), FormsModule]
+      imports: [IonicModule.forRoot(), FormsModule],
+      providers: [
+        {provide: AlertController, useValue: alertSpy}
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(HomePage);
@@ -53,7 +60,7 @@ describe('HomePage', () => {
     expect(component.placed).toBe(true);
   });
 
-  it('should keep currentcol=0,currentrow=0,currentdir= NORTH and placed=false', () => {
+  it('should keep currentcol=0,currentrow=0,currentdir= NORTH and placed=false', async () => {
     component.placed = false;
     component.currentcol = 0;
     component.currentrow = 0;
@@ -61,14 +68,18 @@ describe('HomePage', () => {
     component.row = 20;
     component.col = 3;
     component.dir = 'EAST';
-    component.place();
+    const presentPlaceAlertSpy = spyOn(component, 'presentPlaceAlert').and.callThrough();
+    await component.place();
+    expect(presentPlaceAlertSpy).toHaveBeenCalled();
+    expect(alertSpy.create).toHaveBeenCalled();
+    expect(presentSpy.present).toHaveBeenCalled();
     expect(component.currentrow).toBe(0);
     expect(component.currentcol).toBe(0);
     expect(component.currentdir).toBe('NORTH');
     expect(component.placed).toBe(false);
   });
 
-  it('should keep currentcol=0,currentrow=0,currentdir= NORTH and placed=false', () => {
+  it('should keep currentcol=0,currentrow=0,currentdir= NORTH and placed=false', async () => {
     component.placed = false;
     component.currentcol = 0;
     component.currentrow = 0;
@@ -76,14 +87,18 @@ describe('HomePage', () => {
     component.row = 2;
     component.col = 3;
     component.dir = 'south west';
-    component.place();
+    const presentPlaceAlertSpy = spyOn(component, 'presentPlaceAlert').and.callThrough();
+    await component.place();
+    expect(presentPlaceAlertSpy).toHaveBeenCalled();
+    expect(alertSpy.create).toHaveBeenCalled();
+    expect(presentSpy.present).toHaveBeenCalled();
     expect(component.currentrow).toBe(0);
     expect(component.currentcol).toBe(0);
     expect(component.currentdir).toBe('NORTH');
     expect(component.placed).toBe(false);
   });
 
-  it('should keep currentcol=0,currentrow=0,currentdir= NORTH and placed=false', () => {
+  it('should keep currentcol=0,currentrow=0,currentdir= NORTH and placed=false', async () => {
     component.placed = false;
     component.currentcol = 0;
     component.currentrow = 0;
@@ -91,28 +106,40 @@ describe('HomePage', () => {
     component.row = null;
     component.col = 3;
     component.dir = 'south west';
-    component.place();
+    const presentPlaceAlertSpy = spyOn(component, 'presentPlaceAlert').and.callThrough();
+    await component.place();
+    expect(presentPlaceAlertSpy).toHaveBeenCalled();
+    expect(alertSpy.create).toHaveBeenCalled();
+    expect(presentSpy.present).toHaveBeenCalled();
     expect(component.currentrow).toBe(0);
     expect(component.currentcol).toBe(0);
     expect(component.currentdir).toBe('NORTH');
     expect(component.placed).toBe(false);
   });
 
-  it('should keep currentrow at 2', () => {
+  it('should keep currentrow at 2', async () => {
     component.placed = false;
     component.currentcol = 1;
     component.currentrow = 2;
     component.currentdir = 'NORTH';
-    component.act('move');
+    const presentNoPlaceAlertSpy = spyOn(component, 'presentNoPlaceAlert').and.callThrough();
+    await component.act('move');
+    expect(presentNoPlaceAlertSpy).toHaveBeenCalled();
+    expect(alertSpy.create).toHaveBeenCalled();
+    expect(presentSpy.present).toHaveBeenCalled();
     expect(component.currentrow).toBe(2);
   });
 
-  it('should keep currentrow at 4', () => {
+  it('should keep currentrow at 4', async () => {
     component.placed = true;
     component.currentcol = 1;
     component.currentrow = 4;
     component.currentdir = 'NORTH';
-    component.act('move');
+    const presentMoveAlertSpy = spyOn(component, 'presentMoveAlert').and.callThrough();
+    await component.act('move');
+    expect(presentMoveAlertSpy).toHaveBeenCalled();
+    expect(alertSpy.create).toHaveBeenCalled();
+    expect(presentSpy.present).toHaveBeenCalled();
     expect(component.currentrow).toBe(4);
   });
 
@@ -125,12 +152,16 @@ describe('HomePage', () => {
     expect(component.currentrow).toBe(3);
   });
 
-  it('should keep currentcol at 4', () => {
+  it('should keep currentcol at 4', async () => {
     component.placed = true;
     component.currentcol = 4;
     component.currentrow = 1;
     component.currentdir = 'EAST';
-    component.act('move');
+    const presentMoveAlertSpy = spyOn(component, 'presentMoveAlert').and.callThrough();
+    await component.act('move');
+    expect(presentMoveAlertSpy).toHaveBeenCalled();
+    expect(alertSpy.create).toHaveBeenCalled();
+    expect(presentSpy.present).toHaveBeenCalled();
     expect(component.currentcol).toBe(4);
   });
 
@@ -143,14 +174,19 @@ describe('HomePage', () => {
     expect(component.currentcol).toBe(2);
   });
 
-  it('should keep currentcol at 0', () => {
+  it('should keep currentcol at 0', async () => {
     component.placed = true;
     component.currentcol = 0;
     component.currentrow = 2;
     component.currentdir = 'WEST';
-    component.act('move');
+    const presentMoveAlertSpy = spyOn(component, 'presentMoveAlert').and.callThrough();
+    await component.act('move');
+    expect(presentMoveAlertSpy).toHaveBeenCalled();
+    expect(alertSpy.create).toHaveBeenCalled();
+    expect(presentSpy.present).toHaveBeenCalled();
     expect(component.currentcol).toBe(0);
   });
+
   it('should change currentcol to 0', () => {
     component.placed = true;
     component.currentcol = 1;
@@ -160,14 +196,19 @@ describe('HomePage', () => {
     expect(component.currentcol).toBe(0);
   });
 
-  it('should keep currentrow at 1=0', () => {
+  it('should keep currentrow at 1=0', async () => {
     component.placed = true;
     component.currentcol = 1;
     component.currentrow = 0;
     component.currentdir = 'SOUTH';
-    component.act('move');
+    const presentMoveAlertSpy = spyOn(component, 'presentMoveAlert').and.callThrough();
+    await component.act('move');
+    expect(presentMoveAlertSpy).toHaveBeenCalled();
+    expect(alertSpy.create).toHaveBeenCalled();
+    expect(presentSpy.present).toHaveBeenCalled();
     expect(component.currentrow).toBe(0);
   });
+
   it('should change currentrow to 1', () => {
     component.placed = true;
     component.currentcol = 1;
@@ -177,12 +218,17 @@ describe('HomePage', () => {
     expect(component.currentrow).toBe(1);
   });
 
-  it('should keep currentdir at NORTH ', () => {
+  it('should keep currentdir at NORTH ', async () => {
     component.placed = false;
     component.currentdir = 'NORTH';
-    component.act('left');
+    const presentNoPlaceAlertSpy = spyOn(component, 'presentNoPlaceAlert').and.callThrough();
+    await component.act('left');
+    expect(presentNoPlaceAlertSpy).toHaveBeenCalled();
+    expect(alertSpy.create).toHaveBeenCalled();
+    expect(presentSpy.present).toHaveBeenCalled();
     expect(component.currentdir).toBe('NORTH');
   });
+
   it('should change currentdir to NORTH ', () => {
     component.placed = true;
     component.currentdir = 'EAST';
@@ -211,10 +257,14 @@ describe('HomePage', () => {
     expect(component.currentdir).toBe('WEST');
   });
 
-  it('should keep currentdir at NORTH ', () => {
+  it('should keep currentdir at NORTH ', async () => {
     component.placed = false;
     component.currentdir = 'NORTH';
-    component.act('right');
+    const presentNoPlaceAlertSpy = spyOn(component, 'presentNoPlaceAlert').and.callThrough();
+    await component.act('right');
+    expect(presentNoPlaceAlertSpy).toHaveBeenCalled();
+    expect(alertSpy.create).toHaveBeenCalled();
+    expect(presentSpy.present).toHaveBeenCalled();
     expect(component.currentdir).toBe('NORTH');
   });
 
@@ -246,13 +296,17 @@ describe('HomePage', () => {
     expect(component.currentdir).toBe('WEST');
   });
 
-  it('should keep items as []', () => {
+  it('should keep items as []', async () => {
     component.items = [];
     component.placed = false;
     component.currentcol = 1;
     component.currentrow = 2;
     component.currentdir = 'right';
-    component.act('report');
+    const presentNoPlaceAlertSpy = spyOn(component, 'presentNoPlaceAlert').and.callThrough();
+    await component.act('report');
+    expect(presentNoPlaceAlertSpy).toHaveBeenCalled();
+    expect(alertSpy.create).toHaveBeenCalled();
+    expect(presentSpy.present).toHaveBeenCalled();
     expect(component.items).toEqual([]);
   });
 
