@@ -49,11 +49,11 @@ export class AppPage {
     return element(by.deepCss('[id="report-btn"]'));
   }
 
-  enterRowInput(text: number) {
+  enterColInput(text: string) {
     return element(by.deepCss('[name="ion-input-0"]')).sendKeys(text);
   }
 
-  enterColInput(text: number) {
+  enterRowInput(text: string) {
     return element(by.deepCss('[name="ion-input-1"]')).sendKeys(text);
   }
 

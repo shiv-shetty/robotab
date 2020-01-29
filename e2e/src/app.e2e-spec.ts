@@ -50,16 +50,110 @@ describe('new App', () => {
     expect(page.getReportButton().getText()).toEqual('REPORT');
   });
 
-  it('Report Button should add element to the list', () => {
+  it('Report Button should add inputted element to the list', () => {
     page.navigateTo();
-    page.enterRowInput(2);
-    page.enterColInput(2);
+    page.enterRowInput('2');
+    page.enterColInput('2');
     page.enterDirInput('NORTH');
     page.getPlaceButton().click();
     page.getReportButton().click();
     const itemslist = page.getList();
     expect(itemslist.count()).toBe(1);
     expect(itemslist.get(0).getText()).toBe('2,2,NORTH');
+  });
+
+  it('Move Button should move robot in correct direction', () => {
+    page.navigateTo();
+    page.enterRowInput('2');
+    page.enterColInput('2');
+    page.enterDirInput('NORTH');
+    page.getPlaceButton().click();
+    page.getMoveButton().click();
+    page.getReportButton().click();
+    const itemslist = page.getList();
+    expect(itemslist.count()).toBe(1);
+    expect(itemslist.get(0).getText()).toBe('2,3,NORTH');
+  });
+
+  it('Left Button should rotate robot in correct direction', () => {
+    page.navigateTo();
+    page.enterRowInput('2');
+    page.enterColInput('2');
+    page.enterDirInput('NORTH');
+    page.getPlaceButton().click();
+    page.getLeftButton().click();
+    page.getReportButton().click();
+    const itemslist = page.getList();
+    expect(itemslist.count()).toBe(1);
+    expect(itemslist.get(0).getText()).toBe('2,2,WEST');
+  });
+
+  it('Right Button should rotate robot in correct direction', () => {
+    page.navigateTo();
+    page.enterRowInput('2');
+    page.enterColInput('2');
+    page.enterDirInput('NORTH');
+    page.getPlaceButton().click();
+    page.getRightButton().click();
+    page.getReportButton().click();
+    const itemslist = page.getList();
+    expect(itemslist.count()).toBe(1);
+    expect(itemslist.get(0).getText()).toBe('2,2,EAST');
+  });
+
+  it('Incorrect Place should be ignored', () => {
+    page.navigateTo();
+    page.enterRowInput('20');
+    page.enterColInput('20');
+    page.enterDirInput('south west');
+    page.getPlaceButton().click();
+    page.getReportButton().click();
+    const itemslist = page.getList();
+    expect(itemslist.count()).toBe(0);
+  });
+
+  it('Move off table should be ignored', () => {
+    page.navigateTo();
+    page.enterColInput('4');
+    page.enterRowInput('1');
+    page.enterDirInput('NORTH');
+    page.getPlaceButton().click();
+    page.getRightButton().click();
+    page.getReportButton().click();
+    page.getMoveButton().click();
+    page.getReportButton().click();
+    const itemslist = page.getList();
+    expect(itemslist.count()).toBe(2);
+    expect(itemslist.get(1).getText()).toBe('4,1,EAST');
+  });
+
+  it('Incorrect Place after correct place should be ignored', () => {
+    page.navigateTo();
+    page.enterColInput('2');
+    page.enterRowInput('2');
+    page.enterDirInput('NORTH');
+    page.getPlaceButton().click();
+    page.getMoveButton().click();
+    page.getReportButton().click();
+    page.enterColInput('');
+    page.enterRowInput('-1');
+    page.enterDirInput('NORTH');
+    page.getPlaceButton().click();
+    page.getReportButton().click();
+    const itemslist = page.getList();
+    expect(itemslist.count()).toBe(2);
+    expect(itemslist.get(1).getText()).toBe('2,3,NORTH');
+  });
+
+  it('No input and then a place should be ignored', () => {
+    page.navigateTo();
+    page.enterColInput('');
+    page.enterRowInput('');
+    page.enterDirInput('');
+    page.getPlaceButton().click();
+    page.getReportButton().click();
+    const itemslist = page.getList();
+    expect(itemslist.count()).toBe(0);
   });
 
 });
