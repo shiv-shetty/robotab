@@ -8,7 +8,7 @@ describe('HomePage', () => {
   let component: HomePage;
   let fixture: ComponentFixture<HomePage>;
   let alertSpy;
-  let presentSpy = jasmine.createSpyObj('presentSpy', { present: Promise.resolve()});
+  const presentSpy = jasmine.createSpyObj('presentSpy', { present: Promise.resolve()});
 
   beforeEach(async(() => {
     alertSpy = jasmine.createSpyObj('alertSpy', { create: Promise.resolve(presentSpy)});
